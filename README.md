@@ -17,3 +17,12 @@ Now build this to be used as your `epic` as we did the tutorials
 ## The steering file
 
 The steering file is for throwing protons between 80GeV to 100GeV at the B0 Trackers with crossing angle included as well as the theta range between 0.006rad to 0.012rad. However, the overall coverage is supposed to be 0.03rad to 0.025rad.
+
+
+## The npsim command 
+
+The geometry we will use for this is `epic_craterlake_18x275.xml`
+
+```bash 
+npsim --steeringFile ddsim_steer_B0_testing.py --N [number_of_events] --compactFile $DETECTOR_PATH/epic_craterlake_18x275.xml --outputFile output.edm4hep.root
+```
