@@ -9,20 +9,22 @@ if __name__ == "__main__":
     Make modification to the epic xml files and makes a submit script and mentions how to run the submit script as well 
     """
     parser = argparse.ArgumentParser(description="Write a config file for a simulation")
-    parser.add_argument("-xml", "--xml_file", help="Name of the simulation", default = "epic_craterlake_18x275")
+    parser.add_argument("-n", "--name", help="Name of the $DETECTOR_CONFIG, default: epic_craterlake_18x275", default = "epic_craterlake_18x275")
     parser.add_argument("-epic", "--epic_install", 
                         help="""Path to the epic install,
-                        Check out /volatile/halld/home/ksuresh/ePIC-EIC-2024/epic_install/share/epic
+                        Check out /volatile/halld/home/ksuresh/ePIC-EIC-2024/epic_install
                         """, 
                         required=True,
                         )
+    parser.add_argument("-B0xml", "--B0xml_file", help="Path to the B0 xml template file", required=True)
     parser.add_argument("-c", '--config', help="Path to the configuration file", required=True)
     parser.add_argument("-r", '--run', help="Run the simulations", action="store_true")
     parser.add_argument("-z", '--z_center', help="Z center of the detector in dm", type = float, default = 63)
     args = parser.parse_args() 
     
     # Define the simulation parameters
-    sim_name = args.xml_file
+    sim_name = args.name 
+    B0_xml_file = args.B0xml_file
     path_to_epic_install = args.epic_install
     config = args.config
     
@@ -62,7 +64,7 @@ if __name__ == "__main__":
         ## replace B0_tracker.xml from file compact/far_forward/B0_tracker.xml to compact/far_forward/B0_tracker_63cm_ilayer_25cm.xml
         new_B0_tracker = f"{path_to_epic_install}/compact/far_forward/B0_tracker_{c_name}.xml"
         os.system("ls -lhtr " + path_to_epic_install + "/compact/far_forward/B0_tracker.xml")
-        os.system("cp " + path_to_epic_install + "/compact/far_forward/B0_tracker.xml " + new_B0_tracker)
+        os.system("cp " + B0_xml_file + new_B0_tracker)
         os.system("ls -lhtr " + new_B0_tracker)
         with open(new_B0_tracker, "r") as f:
             contents = f.read()
