@@ -25,7 +25,7 @@ if __name__ == "__main__":
     # Define the simulation parameters
     sim_name = args.name 
     B0_xml_file = args.B0xml_file
-    path_to_epic_install = args.epic_install
+    path_to_epic_install = os.path.join(args.epic_install, "share", "epic")
     config = args.config
     
     interlayer_distance = [25, 32, 23, 27, 29, 31, 35]
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         ## replace B0_tracker.xml from file compact/far_forward/B0_tracker.xml to compact/far_forward/B0_tracker_63cm_ilayer_25cm.xml
         new_B0_tracker = f"{path_to_epic_install}/compact/far_forward/B0_tracker_{c_name}.xml"
         os.system("ls -lhtr " + path_to_epic_install + "/compact/far_forward/B0_tracker.xml")
-        os.system("cp " + B0_xml_file + new_B0_tracker)
+        os.system("cp " + B0_xml_file + " " + new_B0_tracker)
         os.system("ls -lhtr " + new_B0_tracker)
         with open(new_B0_tracker, "r") as f:
             contents = f.read()

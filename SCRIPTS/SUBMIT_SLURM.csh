@@ -10,25 +10,24 @@
 #SBATCH --cpus-per-task=1               # Number of CPUs per task
 #SBATCH --mem-per-cpu=4G                # Main memory in MByte per CPU
 
-
-echo "RUNNING SIMULATIONS IN ${HOSTNAME}"
+echo "RUNNING SIMULATIONS IN $HOSTNAME"
 
 module load singularity
 
-if [ $? -ne 0 ]; then
-    echo "module load failed with ${?}"
-fi
+if ($? != 0) then
+    echo "module load failed with $status"
+endif
 
 echo "Checking if singularity is available"
 
 which singularity
 
-if [ $? -ne 0 ]; then
+if ($? != 0) then
     echo "Singularity not found. Exiting..."
     exit 1
-fi
+endif
 
-echo "Singularity found at $(which singularity) and version is $(singularity --version)"
+echo "Singularity found at `which singularity` and version is `singularity --version`"
 
 # Change to the directory where you submitted the job
 cd OUTPUT_DIR
