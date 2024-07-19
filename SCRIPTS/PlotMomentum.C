@@ -262,4 +262,27 @@ void PlotMomentum(TString FileName, TString outFileSig = "")
     }
     momResFile.close();
 
+    // compute weighted averages across all bins
+    float totalMomRes = 0;
+    float totalMomResErr = 0;
+
+    for (int i = 0; i < nMomBins; i++)
+    {
+        totalMomRes += resols[i] / (resols_err[i] * resols_err[i]);
+        totalMomResErr += 1 / (resols_err[i] * resols_err[i]);
+    }
+
+    totalMomRes /= totalMomResErr;
+    totalMomResErr = sqrt(1 / totalMomResErr);
+
+    // write this out as a json file
+
+    ofstream momResJsonFile;
+    momResJsonFile.open(outFileSig + "_mom_res.json");
+    momResJsonFile << "{" << endl;
+    momResJsonFile << "\"weightedMomentumResoltion\": " << totalMomRes << "," << endl;
+    momResJsonFile << "\"weightedMomentumResolutionError\": " << totalMomResErr << endl;
+    momResJsonFile << "}" << endl;
+    
+
 }
