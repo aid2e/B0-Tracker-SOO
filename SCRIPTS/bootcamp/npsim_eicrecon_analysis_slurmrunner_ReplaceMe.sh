@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#export CWD=$PWD # Save our current working directory
+
 export EIC_PROJECT_DIR="/sciclone/data10/szelitch/AID2E"
 
-cd $EIC_PROJECT_DIR
+#cd $EIC_PROJECT_DIR
 
 # it seems like I need to be in the eic-shell already or the script stops
 # running after this line.
@@ -16,7 +18,7 @@ source $EIC_PROJECT_DIR/epic_install/setup.sh
 # --gun.particle="pi-" or --gun.particle="pi+"
 # --gun.momentumMin 10*MeV --gun.momentumMax 30*GeV 
 # --gun.distribution uniform
-npsim --steeringFile $EIC_PROJECT_DIR/scripts/ddsim_steer_B0_testing.py -N=1000 --outputFile=$EIC_PROJECT_DIR/B0output/ReplaceMe_output.edm4hep.root --compactFile $DETECTOR_PATH/epic_craterlake_18x275.xml_ReplaceMe
+npsim --steeringFile $EIC_PROJECT_DIR/scripts/ddsim_steer_B0_testing.py -N=1000 --outputFile=ReplaceMe_output.edm4hep.root --compactFile $DETECTOR_PATH/epic_craterlake_18x275.xml_ReplaceMe
  
 
 # Run EICrecon reconstruction
@@ -24,12 +26,12 @@ npsim --steeringFile $EIC_PROJECT_DIR/scripts/ddsim_steer_B0_testing.py -N=1000 
 #     e.g. source /opt/detector/setup.sh
 # default output name is podio_output.root
 # Tried to set a different output file name but it didn't work
-eicrecon -Pdd4hep:xml_files=${DETECTOR_PATH}/epic_craterlake_18x275.xml_ReplaceMe -Pplugins=tracking -Ppodio:output_collections=ReconstructedChargedParticles,ReconstructedParticles,ReconstructedChargedWithoutPIDParticleAssociations,GeneratedParticles,MCParticles,ReconstructedChargedParticleAssociations -Ppodio:output_file=$EIC_PROJECT_DIR/B0output/ReplaceMe_podio_output.root $EIC_PROJECT_DIR/B0output/ReplaceMe_output.edm4hep.root
+#eicrecon -Pdd4hep:xml_files=${DETECTOR_PATH}/epic_craterlake_18x275.xml_ReplaceMe -Pplugins=tracking -Ppodio:output_collections=ReconstructedChargedParticles,ReconstructedParticles,ReconstructedChargedWithoutPIDParticleAssociations,GeneratedParticles,MCParticles,ReconstructedChargedParticleAssociations -Ppodio:output_file=ReplaceMe_podio_output.root ReplaceMe_output.edm4hep.root
 
 
 # Run the analysis 
 # Was trying to use Karthik's AnalyzeMomemtum.C
 # root -l -b -q "$EIC_PROJECT_DIR/AnalyzeMomentum.C(\"podio_output.root\", \"analysis_output.root\")"
 # but couldn't get the histograms filled, so am using the tutorial example
-root -l -b -q "$EIC_PROJECT_DIR/scripts/efficiencyAnalysis_new.C(\"$EIC_PROJECT_DIR/B0output/ReplaceMe_podio_output.root\", \"$EIC_PROJECT_DIR/B0output/ReplaceMe_\")"
+#root -l -b -q "$EIC_PROJECT_DIR/scripts/efficiencyAnalysis_new.C(\"ReplaceMe_podio_output.root\", \"ReplaceMe_\")"
 

@@ -23,7 +23,10 @@
 	      "B0TrackerLayer2_zstart" value="-B0Tracker_length/2.0+(posLayer2*cm - posLayer1*cm)"/>
 	      "B0TrackerLayer3_zstart" value="-B0Tracker_length/2.0+(posLayer3*cm - posLayer2*cm)"/>
 	      "B0TrackerLayer4_zstart" value="-B0Tracker_length/2.0+(posLayer4*cm - posLayer3*cm)"/>
-	      This would mean these variables are no longer used: "B0Tracker_nlayers"; "B0Tracker_dz"  
+	      Update: I think I forgot to add the previous layers to each new layer. Rats!
+       
+       
+        This would mean these variables are no longer used: "B0Tracker_nlayers"; "B0Tracker_dz"  
 	      But variables like B0Tracker_zmin would still be valid as defined and used later, like:
         "B0Tracker_zmin"        value="B0TrackerCenter_zpos - B0Tracker_length/2.0
 
@@ -44,8 +47,8 @@
     <constant name="B0Tracker_dz"        value="B0Tracker_length/(B0Tracker_nlayers-1)"/>
     <constant name="B0TrackerLayer1_zstart" value="-B0Tracker_length/2.0"/>
     <constant name="B0TrackerLayer2_zstart" value="-B0Tracker_length/2.0+(posLayer2*cm - posLayer1*cm)"/>
-    <constant name="B0TrackerLayer3_zstart" value="-B0Tracker_length/2.0+(posLayer3*cm - posLayer2*cm)"/>
-    <constant name="B0TrackerLayer4_zstart" value="-B0Tracker_length/2.0+(posLayer4*cm - posLayer3*cm)"/>
+    <constant name="B0TrackerLayer3_zstart" value="-B0Tracker_length/2.0+(posLayer3*cm - posLayer2*cm) + (posLayer2*cm - posLayer1*cm)"/>
+    <constant name="B0TrackerLayer4_zstart" value="-B0Tracker_length/2.0+(posLayer4*cm - posLayer3*cm) + (posLayer3*cm - posLayer2*cm) + (posLayer2*cm - posLayer1*cm)"/>
 
     <comment>
       This angle is the angle subtended in phi for each trap segment.

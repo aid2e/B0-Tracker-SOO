@@ -168,7 +168,14 @@ void efficiencyAnalysis_new(TString FileName, TString outputDirectory = "./"){
   // Check if the file was successfully opened
   if (outFile.is_open()) {
     // Write the desired output to the file
-    outFile << meanTransMomRes << " " << kfEff << std::endl;
+    outFile << "Mean of matchedPartTrackMomRes: " << meanMomRes << std::endl;
+    outFile << "RMS of matchedPartTrackMomRes: " << matchedPartTrackMomRes->GetRMS() << std::endl;
+    outFile << "Max Bin value of matchedPartTrackMomRes: " << matchedPartTrackMomRes->GetBinCenter(matchedPartTrackMomRes->GetMaximumBin()) << std::endl;
+    outFile << "Mean of matchedPartTrackTransMomRes: " << meanTransMomRes << std::endl;
+    outFile << "RMS of matchedPartTrackTransMomRes: " << matchedPartTrackTransMomRes->GetRMS() << std::endl;
+    outFile << "Max Bin value of matchedPartTrackTransMomRes: " << matchedPartTrackTransMomRes->GetBinCenter(matchedPartTrackTransMomRes->GetMaximumBin()) << std::endl;
+    outFile << "Kalman Filter InEfficiency: " << kfEff << std::endl;
+    outFile << meanTransMomRes << " " << matchedPartTrackTransMomRes->GetRMS() << " " << kfEff << std::endl;
 
     // Close the file
     outFile.close();
